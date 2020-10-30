@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PruebaIntegraMedia.Models
 {
-    public class Providers
+    public class Provider
     {
         [Key]
         [DisplayName("Internal ID")]
@@ -38,7 +38,7 @@ namespace PruebaIntegraMedia.Models
         [StringLength(15)]
         public string MobilePhone { get; set; }
 
-        public virtual ICollection<Products> Productos { get; set; }
+        public virtual ICollection<Product> Productos { get; set; }
 
 
     }

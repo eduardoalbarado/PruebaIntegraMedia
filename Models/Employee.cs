@@ -18,7 +18,6 @@ namespace PruebaIntegraMedia.Models
         public int ID { get; set; }
 
         [DisplayName("Legajo")]
-        [Index(IsUnique = true)]
         public int Employee_Id { get; set; }
 
         [DisplayName("Nombre")]
@@ -34,7 +33,7 @@ namespace PruebaIntegraMedia.Models
         [DisplayName("DNI")]
         [Required(ErrorMessage = "DNI es requerido")]
         [Range(1000000, 99999999, ErrorMessage = "Precio debe estar entre 1000000 y 99999999")]
-        public decimal Document { get; set; }
+        public int Document { get; set; }
 
         [DisplayName("Fecha de Nacimiento")]
         [Required(ErrorMessage = "Fecha de Nacimiento es requerido")]

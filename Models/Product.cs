@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PruebaIntegraMedia.Models
 {
-    public class Products
+    public class Product
     {
         [HiddenInput(DisplayValue = false)]
         [Key]
@@ -25,7 +25,7 @@ namespace PruebaIntegraMedia.Models
 
 
         [DisplayName("Marcar")]
-        public int Marca { get; set; }
+        public Brand Brand { get; set; }
 
         [DisplayName("Fecha de Vencimiento")]
         [Required(ErrorMessage = "Fecha de Vencimiento es requerido")]
@@ -33,13 +33,13 @@ namespace PruebaIntegraMedia.Models
 
         [DisplayName("Precio")]
         [Required(ErrorMessage = "Precio es requerido")]
-        [Range(1, 99999999, ErrorMessage = "Precio validos desde 1 hasta 99999999")]
-        public decimal Unit_Price { get; set; }
+        [Range(1.00, 99999999.99, ErrorMessage = "Precio validos desde 1 hasta 99999999")]
+        public double  Unit_Price { get; set; }
 
         [DisplayName("Proveedor")]
         public int Provider { get; set; }
 
-        public virtual Catagorie Catagorie { get; set; }
+        public virtual Brand Brands { get; set; }
 
 
 
