@@ -19,7 +19,7 @@ namespace PruebaIntegraMedia.Models
 
         [DisplayName("Legajo")]
         [Index(IsUnique = true)]
-        public int EMPLOYEE_ID { get; set; }
+        public int Employee_Id { get; set; }
 
         [DisplayName("Nombre")]
         [Required(ErrorMessage = "Nombre es requerido")]

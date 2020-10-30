@@ -11,7 +11,17 @@ namespace PruebaIntegraMedia.Models
 {
     public class Client
     {
+        [DisplayName("Nombre")]
+        [Required(ErrorMessage = "Nombre es requerido")]
+        [StringLength(50)]
+        public string First_Name { get; set; }
+
+        [DisplayName("Apellido")]
+        [Required(ErrorMessage = "Apellido es requerido")]
+        [StringLength(50)]
+        public string Last_Name { get; set; }
 
         
+
     }
 }
