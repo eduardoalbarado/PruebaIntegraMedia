@@ -11,7 +11,7 @@ namespace PruebaIntegraMedia.Models
 {
     public class Product
     {
-        [HiddenInput(DisplayValue = false)]
+        //[HiddenInput(DisplayValue = false)]
         [Key]
         [ScaffoldColumn(false)]
         public int ID { get; set; }
@@ -25,7 +25,11 @@ namespace PruebaIntegraMedia.Models
 
 
         [DisplayName("Marcar")]
-        public Brand Brand { get; set; }
+        [Required(ErrorMessage = "Marca es requerida")]
+        [ForeignKey("Brand")]
+        //public int BrandId { get; set; }
+        public int BrandId { get; set; }
+        //public Brand Brand { get; set; }
 
         [DisplayName("Fecha de Vencimiento")]
         [Required(ErrorMessage = "Fecha de Vencimiento es requerido")]
@@ -37,9 +41,13 @@ namespace PruebaIntegraMedia.Models
         public double  Unit_Price { get; set; }
 
         [DisplayName("Proveedor")]
-        public int Provider { get; set; }
+        [Required(ErrorMessage = "Proveedor es requerido")]
+        [ForeignKey("Provider")]
+        //public int ProviderId { get; set; }
+        public int ProviderId { get; set; }
 
-        public virtual Brand Brands { get; set; }
+
+        public virtual Brand Brand { get; set; }
 
 
 

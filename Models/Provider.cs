@@ -12,10 +12,11 @@ namespace PruebaIntegraMedia.Models
     public class Provider
     {
         [Key]
+        [HiddenInput(DisplayValue = false)]
         [DisplayName("Internal ID")]
         public int ID { get; set; }
 
-        [DisplayName("Nombre del Proveedor")]
+        [DisplayName("Nombre Proveedor")]
         [Required(ErrorMessage = "Nombre es requerido")]
         [StringLength(60)]
         public string Name { get; set; }

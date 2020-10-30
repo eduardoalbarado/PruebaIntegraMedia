@@ -12,10 +12,11 @@ namespace PruebaIntegraMedia.Models
     public class Brand
     {
         [Key]
+        [HiddenInput(DisplayValue = false)]
         [DisplayName("Internal ID")]
         public int ID { get; set; }
 
-        [DisplayName("Nombre del Proveedor")]
+        [DisplayName("Nombre")]
         [Required(ErrorMessage = "Nombre es requerido")]
         [StringLength(32)]
         public string Name { get; set; }
@@ -29,7 +30,7 @@ namespace PruebaIntegraMedia.Models
         [DefaultValue(true)]
         public bool Enabled { get; set; }
 
-        //public virtual ICollection<Product> Productos { get; set; }
+        public virtual ICollection<Product> Productos { get; set; }
 
 
 
