@@ -48,6 +48,7 @@ namespace PruebaIntegraMedia.Models
 
 
         public virtual Brand Brand { get; set; }
+        public virtual List<OrderDetail> OrderDetails { get; set; }
 
 
 

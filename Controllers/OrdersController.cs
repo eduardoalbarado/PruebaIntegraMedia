@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,30 +10,23 @@ using PruebaIntegraMedia.Models;
 
 namespace PruebaIntegraMedia.Controllers
 {
-    [Authorize]
-    public class ProductsController : Controller
+    public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductsController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            var applicationDbContext = _context.Orders.Include(o => o.Client).Include(o => o.Employee);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        public async Task<IActionResult> ProductCart(string search)
-        {
-            return View(await _context.Products
-                .Where(x => x.Expiration_Date > DateTime.Now)
-                .ToListAsync());
-        }
-
-        // GET: Products/Details/5
+        // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,66 +34,70 @@ namespace PruebaIntegraMedia.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var order = await _context.Orders
+                .Include(o => o.Client)
+                .Include(o => o.Employee)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (product == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(order);
         }
 
-        // GET: Products/Create
+        // GET: Orders/Create
         public IActionResult Create()
         {
-            ViewBag.BrandId = new SelectList(_context.Brands, "ID", "Name");
-            ViewBag.ProviderId = new SelectList(_context.Providers, "ID", "Name");
+            ViewData["ClientID"] = new SelectList(_context.Clients, "ID", "CreditCard");
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "First_Name");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Orders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,BrandId,Expiration_Date,Unit_Price,ProviderId")] Product product)
+        public async Task<IActionResult> Create([Bind("OrderDate,ClientID,EmployeeID")] Order order)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(order);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            ViewData["ClientID"] = new SelectList(_context.Clients, "ID", "CreditCard", order.ClientID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "First_Name", order.EmployeeID);
+            return View(order);
         }
 
-        // GET: Products/Edit/5
+        // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            ViewBag.BrandId = new SelectList(_context.Brands, "ID", "Name");
-            ViewBag.ProviderId = new SelectList(_context.Providers, "ID", "Name");
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null)
             {
                 return NotFound();
             }
-            return View(product);
+            ViewData["ClientID"] = new SelectList(_context.Clients, "ID", "CreditCard", order.ClientID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "First_Name", order.EmployeeID);
+            return View(order);
         }
 
-        // POST: Products/Edit/5
+        // POST: Orders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,BrandId,Expiration_Date,Unit_Price,ProviderId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,OrderDate,ClientID,EmployeeID")] Order order)
         {
-            if (id != product.ID)
+            if (id != order.ID)
             {
                 return NotFound();
             }
@@ -110,12 +106,12 @@ namespace PruebaIntegraMedia.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ID))
+                    if (!OrderExists(order.ID))
                     {
                         return NotFound();
                     }
@@ -126,10 +122,12 @@ namespace PruebaIntegraMedia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            ViewData["ClientID"] = new SelectList(_context.Clients, "ID", "CreditCard", order.ClientID);
+            ViewData["EmployeeID"] = new SelectList(_context.Employees, "ID", "First_Name", order.EmployeeID);
+            return View(order);
         }
 
-        // GET: Products/Delete/5
+        // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,30 +135,41 @@ namespace PruebaIntegraMedia.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var order = await _context.Orders
+                .Include(o => o.Client)
+                .Include(o => o.Employee)
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (product == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(order);
         }
 
-        // POST: Products/Delete/5
+        // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
+            var order = await _context.Orders.FindAsync(id);
+            _context.Orders.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+
+        // GET: OrderDetails
+        public async Task<IActionResult> OrderDetails(int OrderId)
         {
-            return _context.Products.Any(e => e.ID == id);
+            var applicationDbContext = _context.OrderDetails.Include(p => p.Product)
+                .Where(x => x.OrderId == OrderId);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+        private bool OrderExists(int id)
+        {
+            return _context.Orders.Any(e => e.ID == id);
         }
     }
 }

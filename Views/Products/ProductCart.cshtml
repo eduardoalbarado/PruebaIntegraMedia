@@ -1,0 +1,41 @@
+﻿@model IEnumerable<PruebaIntegraMedia.Models.Product>
+
+@{
+    Layout = "";
+}
+
+<h3>Productos disponibles</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Expiration_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Unit_Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Expiration_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unit_Price)
+            </td>
+            <td>
+                <a asp-action="AddProduct" asp-route-id="@item.ID">Agregar</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

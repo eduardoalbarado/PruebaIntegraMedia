@@ -17,9 +17,6 @@ namespace PruebaIntegraMedia.Models
         [ScaffoldColumn(false)]
         public int ID { get; set; }
 
-        [DisplayName("Legajo")]
-        [Required]
-        public int Employee_Id { get; set; }
 
         [DisplayName("Nombre")]
         [Required(ErrorMessage = "Nombre es requerido")]

@@ -16,15 +16,25 @@ namespace PruebaIntegraMedia.Models
         [ScaffoldColumn(false)]
         public int ID { get; set; }
 
-        [DisplayName("Fecha de Facturación")]
-        [Required(ErrorMessage = "Fecha de Vencimiento es requerido")]
+        [DisplayName("Fecha")]
+        [Required(ErrorMessage = "Fecha es requerida")]
         public System.DateTime OrderDate { get; set; }
 
         [DisplayName("Cliente")]
-        public Client client { get; set; }
+        [Required(ErrorMessage = "Cliente es requerido")]
+        public int ClientID { get; set; }
+
+        [ForeignKey("ClientID")]
+        public virtual Client Client { get; set; }
+
 
         [DisplayName("Vendedor")]
-        public Employee employee { get; set; }
+        [Required(ErrorMessage = "Vender es requerido")]
+        public int EmployeeID { get; set; }
+
+        [ForeignKey("EmployeeID")]
+        public virtual Employee Employee { get; set; }
+
 
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

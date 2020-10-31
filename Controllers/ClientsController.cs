@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,30 +10,22 @@ using PruebaIntegraMedia.Models;
 
 namespace PruebaIntegraMedia.Controllers
 {
-    [Authorize]
-    public class ProductsController : Controller
+    public class ClientsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductsController(ApplicationDbContext context)
+        public ClientsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Clients
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Products.ToListAsync());
+            return View(await _context.Clients.ToListAsync());
         }
 
-        public async Task<IActionResult> ProductCart(string search)
-        {
-            return View(await _context.Products
-                .Where(x => x.Expiration_Date > DateTime.Now)
-                .ToListAsync());
-        }
-
-        // GET: Products/Details/5
+        // GET: Clients/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -42,66 +33,62 @@ namespace PruebaIntegraMedia.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var client = await _context.Clients
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (product == null)
+            if (client == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(client);
         }
 
-        // GET: Products/Create
+        // GET: Clients/Create
         public IActionResult Create()
         {
-            ViewBag.BrandId = new SelectList(_context.Brands, "ID", "Name");
-            ViewBag.ProviderId = new SelectList(_context.Providers, "ID", "Name");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Clients/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,BrandId,Expiration_Date,Unit_Price,ProviderId")] Product product)
+        public async Task<IActionResult> Create([Bind("First_Name,Last_Name,Document,DateOfBirthday,Enabled,CreditCard")] Client client)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(product);
+                _context.Add(client);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(client);
         }
 
-        // GET: Products/Edit/5
+        // GET: Clients/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
-            ViewBag.BrandId = new SelectList(_context.Brands, "ID", "Name");
-            ViewBag.ProviderId = new SelectList(_context.Providers, "ID", "Name");
 
-            var product = await _context.Products.FindAsync(id);
-            if (product == null)
+            var client = await _context.Clients.FindAsync(id);
+            if (client == null)
             {
                 return NotFound();
             }
-            return View(product);
+            return View(client);
         }
 
-        // POST: Products/Edit/5
+        // POST: Clients/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,BrandId,Expiration_Date,Unit_Price,ProviderId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("First_Name,Last_Name,Document,DateOfBirthday,Enabled,CreditCard")] Client client)
         {
-            if (id != product.ID)
+            if (id != client.ID)
             {
                 return NotFound();
             }
@@ -110,12 +97,12 @@ namespace PruebaIntegraMedia.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(client);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.ID))
+                    if (!ClientExists(client.ID))
                     {
                         return NotFound();
                     }
@@ -126,10 +113,10 @@ namespace PruebaIntegraMedia.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(product);
+            return View(client);
         }
 
-        // GET: Products/Delete/5
+        // GET: Clients/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -137,30 +124,30 @@ namespace PruebaIntegraMedia.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Products
+            var client = await _context.Clients
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (product == null)
+            if (client == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(client);
         }
 
-        // POST: Products/Delete/5
+        // POST: Clients/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
+            var client = await _context.Clients.FindAsync(id);
+            _context.Clients.Remove(client);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(int id)
+        private bool ClientExists(int id)
         {
-            return _context.Products.Any(e => e.ID == id);
+            return _context.Clients.Any(e => e.ID == id);
         }
     }
 }
