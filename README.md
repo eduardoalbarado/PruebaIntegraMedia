@@ -1,5 +1,9 @@
 # PruebaIntegraMedia
 
+[link Demo!](https://pruebaintegramedia.azurewebsites.net/)
+usuario: empleado1@gmail.com
+clave:   claveprueba
+
 Consigna
 
 Se necesita crear un sistema que se encargue del registro de ventas, donde también se puedan cargar los clientes y los empleados de dicha empresa, indicando su nombre, apellido, DNI, fecha de nacimiento, edad.
