@@ -33,7 +33,7 @@
                 @Html.DisplayFor(modelItem => item.Unit_Price)
             </td>
             <td>
-                <a asp-action="AddProduct" asp-route-id="@item.ID">Agregar</a> 
+                <a asp-action="OrderDetailAdd" asp-controller="Orders" asp-route-ProductId="@item.ID" asp-route-OrderId="@ViewBag.OrderId">Agregar</a> 
             </td>
         </tr>
 }

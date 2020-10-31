@@ -31,15 +31,16 @@
                 @Html.DisplayFor(modelItem => item.OrderDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Client.CreditCard)
+                @Html.DisplayFor(modelItem => item.Client.First_Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Employee.First_Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.ID">Modificar</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Eliminar</a>
+                <a asp-action="Print" asp-route-id="@item.ID" target="_blank">Imprimir Factura</a>
             </td>
         </tr>
 }

@@ -4,12 +4,11 @@
     ViewData["Title"] = "Edit";
 }
 <script src="/lib/jquery/dist/jquery.min.js"></script>
-<h1>Edit</h1>
-
-<h4>Order</h4>
+<h1>Punto de Venta</h1>
 <hr />
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-6 ">
+        <h4>Venta</h4>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
@@ -29,7 +28,9 @@
                 <span asp-validation-for="EmployeeID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                @*<input type="submit" value="Save" class="btn btn-primary" />*@
+                <a asp-action="Print" asp-route-id="@Model.ID" target="_blank">Imprimir Factura</a>
+
             </div>
         </form>
         <div id="dynamicContentContainerOrderDetails"></div>
@@ -40,11 +41,11 @@
             });
         </script>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 bg-warning">
         <div id="dynamicContentContainer"></div>
         <script>
 
-            $.get('@Url.Action("ProductCart", "Products")', { search : 'a'}, function(content){
+            $.get('@Url.Action("ProductCart", "Products")', { search: 'a', OrderId: @(Model.ID) }, function (content) {
                 $("#dynamicContentContainer").html(content);
             });
         </script>

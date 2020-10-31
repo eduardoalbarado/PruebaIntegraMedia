@@ -27,8 +27,9 @@ namespace PruebaIntegraMedia.Controllers
             return View(await _context.Products.ToListAsync());
         }
 
-        public async Task<IActionResult> ProductCart(string search)
+        public async Task<IActionResult> ProductCart(string search, int OrderId)
         {
+            ViewBag.OrderId = OrderId;
             return View(await _context.Products
                 .Where(x => x.Expiration_Date > DateTime.Now)
                 .ToListAsync());

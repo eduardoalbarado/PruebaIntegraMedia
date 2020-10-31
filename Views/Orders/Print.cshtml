@@ -1,0 +1,193 @@
+﻿@model IEnumerable<PruebaIntegraMedia.Models.OrderDetail>
+
+@{
+    Layout = "";
+
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css'>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+</head>
+<style>
+
+    .Print {
+        width: 900px;
+    }
+    body {
+        background: lightgrey;
+        font-family: Gotham,Arial,Helvetica Neue,Helvetica,sans-serif;
+    }
+   *,::after,::before{box-sizing:border-box;}
+h3,h5{margin-top:0;margin-bottom:.5rem;}
+p{margin-top:0;margin-bottom:1rem;}
+strong{font-weight:bolder;}
+a{color:#007bff;text-decoration:none;background-color:transparent;-webkit-text-decoration-skip:objects;}
+a:hover{color:#0056b3;text-decoration:underline;}
+table{border-collapse:collapse;}
+th{text-align:inherit;}
+h3,h5{margin-bottom:.5rem;font-family:inherit;font-weight:500;line-height:1.2;color:inherit;}
+h3{font-size:1.75rem;}
+h5{font-size:1.25rem;}
+.row{display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-15px;margin-left:-15px;}
+.col-lg-4,.col-sm-5,.col-sm-6{position:relative;width:100%;min-height:1px;padding-right:15px;padding-left:15px;}
+@@media (min-width:576px){
+.col-sm-5{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%;}
+.col-sm-6{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%;}
+}
+@@media (min-width:992px){
+.col-lg-4{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%;}
+}
+.table{width:100%;max-width:100%;margin-bottom:1rem;background-color:transparent;}
+.table td,.table th{padding:.75rem;vertical-align:top;border-top:1px solid #dee2e6;}
+.table thead th{vertical-align:bottom;border-bottom:2px solid #dee2e6;}
+.table-striped tbody tr:nth-of-type(odd){background-color:rgba(0,0,0,.05);}
+@@media (max-width:575.98px){
+.table-responsive-sm{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar;}
+}
+.card{position:relative;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column;min-width:0;word-wrap:break-word;background-color:#fff;background-clip:border-box;border:1px solid rgba(0,0,0,.125);border-radius:.25rem;}
+.card-body{-ms-flex:1 1 auto;flex:1 1 auto;padding:1.25rem;}
+.card-header{padding:.75rem 1.25rem;margin-bottom:0;background-color:rgba(0,0,0,.03);border-bottom:1px solid rgba(0,0,0,.125);}
+.card-header:first-child{border-radius:calc(.25rem - 1px) calc(.25rem - 1px) 0 0;}
+.card-footer{padding:.75rem 1.25rem;background-color:rgba(0,0,0,.03);border-top:1px solid rgba(0,0,0,.125);}
+.card-footer:last-child{border-radius:0 0 calc(.25rem - 1px) calc(.25rem - 1px);}
+.bg-white{background-color:#fff!important;}
+.d-inline-block{display:inline-block!important;}
+.float-right{float:right!important;}
+.mb-0{margin-bottom:0!important;}
+.mb-1{margin-bottom:.25rem!important;}
+.mb-3{margin-bottom:1rem!important;}
+.mb-4{margin-bottom:1.5rem!important;}
+.pt-2{padding-top:.5rem!important;}
+.p-4{padding:1.5rem!important;}
+.ml-auto{margin-left:auto!important;}
+.text-dark{color:#343a40!important;}
+@@media print{
+*,::after,::before{text-shadow:none!important;box-shadow:none!important;}
+a:not(.btn){text-decoration:underline;}
+thead{display:table-header-group;}
+tr{page-break-inside:avoid;}
+h3,p{orphans:3;widows:3;}
+h3{page-break-after:avoid;}
+.table{border-collapse:collapse!important;}
+.table td,.table th{background-color:#fff!important;}
+}
+/*! CSS Used from: Embedded */
+.card{margin-bottom:30px;border:none;-webkit-box-shadow:0px 1px 2px 1px rgba(154, 154, 204, 0.22);-moz-box-shadow:0px 1px 2px 1px rgba(154, 154, 204, 0.22);box-shadow:0px 1px 2px 1px rgba(154, 154, 204, 0.22);}
+.card-header{background-color:#fff;border-bottom:1px solid #e6e6f2;}
+h3{font-size:20px;}
+h5{font-size:15px;line-height:26px;color:#3d405c;margin:0px 0px 15px 0px;font-family:'Circular Std Medium';}
+.text-dark{color:#3d405c!important;}
+</style>
+<body>
+    <div class="Print">
+        <div class="card">
+            <div class="card-header p-4">
+
+                <div class="float-right">
+                    <h3 class="mb-0">Factura "A"   001- 00000@(ViewBag.Order.ID)</h3>
+                    Fecha: @(ViewBag.Order.OrderDate)
+
+                </div>
+
+                <div class="float-left">
+                    <h3 class="text-dark mb-1">NOMBRE DE FANTASÍA</h3>
+                    <div>APELLIDO Y NOMBRE ó RAZÓN SOCIAL</div>
+                    <div>DOMICILIO COMERCIAL</div>
+                    <div> DOMICILIO FISCAL</div>
+                    <div> IVA RESPONSABLE INSCRIPTO</div>
+
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="col-sm-6">
+
+                    <h3 class="text-dark mb-1">Cliente</h3>
+                    <div>Nombre y Apellido: @(ViewBag.Client.First_Name) @(ViewBag.Client.Last_Name)</div>
+                    <div>Documento: @(ViewBag.Client.Document)</div>
+
+
+                </div>
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="center">#</th>
+                                <th></th>
+                                <th>Producto</th>
+                                <th class="right">Precio</th>
+                                <th class="center">Cant</th>
+                                <th class="right">Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{double Total = 0;
+                                int count = 1;}
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="center">@(count)</td>
+                                    <td class="left strong"></td>
+                                    <td class="left">@Html.DisplayFor(modelItem => item.Product.Name)</td>
+                                    <td class="right">$ @Html.DisplayFor(modelItem => item.Price)</td>
+                                    <td class="center">@Html.DisplayFor(modelItem => item.Quantity)</td>
+                                    <td class="right">$ @(item.Price*item.Quantity)</td>
+                                </tr>
+                                Total = Total + (item.Price * item.Quantity);
+                                count++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                    </div>
+                    <div class="col-lg-4 col-sm-5 ml-auto">
+                        <table class="table table-clear">
+                            <tbody>
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">Subtotal</strong>
+                                    </td>
+                                    <td class="right">$  @(Total)</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">Descuento (0%)</strong>
+                                    </td>
+                                    <td class="right">$0,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark"></strong>
+                                    </td>
+                                    <td class="right"></td>
+                                </tr>
+                                <tr>
+                                    <td class="left">
+                                        <strong class="text-dark">Total</strong>
+                                    </td>
+                                    <td class="right">
+                                        <strong class="text-dark">$  @(Total)</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <p class="mb-0">Vendedor: @ViewBag.Emproyee.First_Name @ViewBag.Emproyee.Last_Name</p>
+                <p class="mb-0">Legajo: @ViewBag.Emproyee.Employee_Id</p>
+            </div>
+        </div>
+    </div>
+   
+
+</body>
+</html>

@@ -41,6 +41,15 @@ namespace PruebaIntegraMedia.Models
         [DefaultValue(true)]
         public bool Enabled { get; set; }
 
+        public string Full_Name
+        {
+            get
+            {
+                return string.Format("{0} {1}", First_Name, Last_Name);
+            }
+        }
+
+        [DisplayName("Edad")]
         public virtual int Age
         {
             get
@@ -61,13 +70,19 @@ namespace PruebaIntegraMedia.Models
 
         private int CalculateAge(DateTime birthDate)
         {
-            DateTime n = DateTime.Now;
-            int age = n.Year - birthDate.Year;
+            try
+            {
+                int age = 0;
+                age = DateTime.Now.Subtract(birthDate).Days;
+                age = age / 365;
+                return age;
+            }
+            catch (Exception)
+            {
+                return 0;
+                throw;
+            }
 
-            if (n.Month < birthDate.Month || (n.Month == birthDate.Month && n.Day < birthDate.Day))
-                age--;
-
-            return age;
         }
 
         [Display(Name = "Tarjeta de Credito")]

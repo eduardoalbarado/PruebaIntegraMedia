@@ -24,6 +24,7 @@ namespace PruebaIntegraMedia.Models
         [Required(ErrorMessage = "Cliente es requerido")]
         public int ClientID { get; set; }
 
+        [DisplayName("Cliente")]
         [ForeignKey("ClientID")]
         public virtual Client Client { get; set; }
 
@@ -32,13 +33,13 @@ namespace PruebaIntegraMedia.Models
         [Required(ErrorMessage = "Vender es requerido")]
         public int EmployeeID { get; set; }
 
+        [DisplayName("Vendedor")]
         [ForeignKey("EmployeeID")]
         public virtual Employee Employee { get; set; }
 
 
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
-
 
 
     }

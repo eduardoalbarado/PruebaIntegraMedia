@@ -14,7 +14,9 @@ namespace PruebaIntegraMedia.Models
         public int Id { get; set; }
         public int OrderId { get; set; }
         public int  ProductId { get; set; }
+        [DisplayName("Precio U.")]
         public double Price { get; set; }
+        [DisplayName("Cant.")]
         public double Quantity { get; set; }
 
         public virtual Product Product { get; set; }
