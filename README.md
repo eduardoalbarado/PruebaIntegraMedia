@@ -1,8 +1,8 @@
 # PruebaIntegraMedia
 
 [link Demo!](https://pruebaintegramedia.azurewebsites.net/)
-usuario: empleado1@gmail.com
-clave:   claveprueba
+* usuario: empleado1@gmail.com
+* clave:   claveprueba
 
 Consigna
 
