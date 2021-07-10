@@ -24,4 +24,4 @@ Como ORM se usará EntityFramework en la modalidad Code First, ya que no contamo
 
 •	Frontend se usará lenguajes de maquetado y scripting HTML, JavaScript. (En el caso que el sistema fuese más complejo y duradero es muy recomendable implementar Angular en el Fontend)
 Base de datos
-Al no tener un requerimiento de alta performance, se optó por una base de datos en un SqlServer Express. Si hubiese un incremente en el acceso a la base de datos se puede migrar a una versión superior o migrarlo a Azure donde se puede escalar dinámicamente, y disponer de alta disponibilidad.
+Al no tener un requerimiento de alta performance, se optó por una base de datos en SQLite solo por ser una prueba. Si hubiese un incremente en el acceso a la base de datos o pensar en publicarla se puede migrar a SQLEXPRESS o a una versión superior o migrarlo a Azure donde se puede escalar dinámicamente, y disponer de alta disponibilidad.
