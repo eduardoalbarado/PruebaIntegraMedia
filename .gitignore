@@ -342,3 +342,4 @@ healthchecksdb
 /Migrations/20201030212745_001.Designer.cs
 /Migrations/20201030212745_001.cs
 /Views/OrderDetails
+/App_data/sqlitedemo.db
