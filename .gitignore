@@ -343,3 +343,4 @@ healthchecksdb
 /Migrations/20201030212745_001.cs
 /Views/OrderDetails
 /App_data/sqlitedemo.db
+/Properties/ServiceDependencies/PruebaIntegraMedia - Web Deploy/profile.arm.json
